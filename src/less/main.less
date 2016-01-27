@@ -1,0 +1,70 @@
+//brand
+@fame-red: #E30016;
+/*@fame-red: rgba(227, 0, 22, 1);*/
+
+//layout
+/*@primary-color: #fff;*/
+@primary-color: #eee; //@fame-red;
+@secondary-color: @fame-red;
+@font-color: #000;
+/*@navbar-background: rgba(84,135,157,0.7);*/
+@navbar-background: rgba(255,255,255,1);
+@navbar-links-color: #333;
+
+/*
+ *   video player
+ */
+@video-color: @primary-color;// #fff; //base color
+@video-bg: #333;// rgb(247, 46, 65); //background
+
+@video-play-color: @primary-color;//#fff;
+@video-play-color-hover: @fame-red;
+@video-play-bg: #2B333F;
+@video-play-bg-hover: #73859f; //orangered;//rgb(115, 133, 159);
+
+@video-control-bar-bg: @video-play-bg;
+@video-progress-bg: @secondary-color;
+@vjs-slider-bg: #73859f;
+
+
+
+@import 'navbar';
+@import 'video-js';
+@import 'sections';
+@import 'main-video';
+
+.video-list-item{
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+
+    img{
+        width: 100%;
+    }
+
+    .title,.detail{
+        position: absolute;
+        color: #fff;
+
+    }
+
+    .title{
+        bottom: 5px;
+        width: 100%;
+        padding: 1px 3px;
+        background-color: rgba(181, 0, 17,0.5);
+
+    }
+    &:hover{
+        .title{
+            background-color: rgba(141, 0, 13,0.8);
+
+        }
+    }
+    .detail{
+        top: 2px;
+        padding: 1px 5px;
+        text-shadow: 0 1px 1px #000;
+        background-color: rgba(141, 0, 13,1);
+    }
+}

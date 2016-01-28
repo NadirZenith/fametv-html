@@ -60,11 +60,11 @@ include 'src/config.php';
                         <li class="hidden">
                             <a class="page-scroll" href="#home"></a>
                         </li>
-<!--                        
-                        <li>
-                            <a class="page-scroll" href="#list">List</a>
-                        </li>
--->
+                        <!--                        
+                                                <li>
+                                                    <a class="page-scroll" href="#list">List</a>
+                                                </li>
+                        -->
                         <li>
                             <a class="page-scroll" href="#contact">Contacto</a>
                         </li>
@@ -146,7 +146,7 @@ include 'src/config.php';
                             </video>
                         </div>
                         <h1 class="video-title">FAME Porto - brincadeiras de TV e Moda na aula de José Figueiras</h1>
-                       
+
                     </div>
                     <div class=" col-lg-12 " >
                         <div class="row">
@@ -249,5 +249,8 @@ include 'src/config.php';
         <!-- app-->
         <script src="dist/modules.js"></script>
         <script src="dist/app.js"></script>
+        <?php
+        include 'src/switch_branch.php';
+        ?>
     </body>
 </html>

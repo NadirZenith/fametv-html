@@ -23,19 +23,22 @@ if (isset($_GET['switch_branch'])) {
         $is_current = strpos($branch, '*') !== false;
         $branch_name = trim(trim($branch, '*'));
         ?>
-        <ul>
-            <li>
-                <?php
-                echo sprintf($switch_link, $branch_name, $branch);
-                ?>
-            </li>
-        </ul>
+        <div id="nz-git-switch">
+            <ul>
+                <li>
+                    <?php
+                    echo sprintf($switch_link, $branch_name, $branch);
+                    ?>
+                </li>
+            </ul>
+        </div>
         <?php
     }
 }
 ?>
 <style>
     #nz-git-switch{
+        z-index: 10000;
         border-left: 25px solid blueviolet;
         padding: 5px;
         padding-left: 15px;

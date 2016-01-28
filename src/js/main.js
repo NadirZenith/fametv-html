@@ -5,13 +5,15 @@ $(function () {
     }, 1000);
 
     //jQuery to collapse the navbar on scroll
-    $(window).scroll(function () {
-        if ($(".navbar").offset().top > 50) {
-            $(".navbar-fixed-top").addClass("top-nav-collapse");
-        } else {
-            $(".navbar-fixed-top").removeClass("top-nav-collapse");
-        }
-    });
+    /*    
+     $(window).scroll(function () {
+     if ($(".navbar").offset().top > 50) {
+     $(".navbar-fixed-top").addClass("top-nav-collapse");
+     } else {
+     $(".navbar-fixed-top").removeClass("top-nav-collapse");
+     }
+     });
+     * */
     //jQuery for page scrolling feature - requires jQuery Easing plugin
     $(function () {
         $('a.page-scroll').bind('click', function (event) {
@@ -49,20 +51,41 @@ $(function () {
         }
     });
 
+
     var waypoint = new Waypoint({
-        element: document.getElementById('list'),
-        offset: '70%',
+        element: document.getElementById('home'),
+        offset: '-50px',
         handler: function (direction) {
             console.log('works', direction);
-            /*            
-             if ('down' === direction) {
-             $('body').addClass('main-img-left');
-             $('#main-img').attr('src', 'img/twist.png');
-             } else {
-             $('body').removeClass('main-img-left');
-             $('#main-img').attr('src', 'img/normal.png');
-             }
-             * */
+            var $body = $('body');
+            var $navbar = $(".navbar-fixed-top");
+            if ('down' === direction) {
+                $body.addClass('show-list');
+                $navbar.addClass("top-nav-collapse");
+
+            } else {
+                $body.removeClass('show-list');
+                $body.removeClass('show-video');
+                $navbar.removeClass("top-nav-collapse");
+            }
+        }
+    });
+
+    var doc = document.documentElement;
+    var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    var $body = $('body');
+
+    $('.video-list-item').on('click', function () {
+        $body.addClass('show-video');
+        top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    });
+
+    $(window).on('scroll', function () {
+        var newTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        console.log('Event Fired', top, newTop);
+        if (newTop !== top) {
+            $body.removeClass('show-video');
+
         }
     });
 

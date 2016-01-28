@@ -215,5 +215,8 @@ include 'src/config.php';
         <!-- app-->
         <script src="dist/modules.js"></script>
         <script src="dist/app.js"></script>
+        <?php
+        include 'src/switch_branch.php';
+        ?>
     </body>
 </html>

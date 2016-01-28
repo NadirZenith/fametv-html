@@ -60,11 +60,16 @@ include 'src/config.php';
                         <li class="hidden">
                             <a class="page-scroll" href="#home"></a>
                         </li>
+<!--                        
                         <li>
                             <a class="page-scroll" href="#list">List</a>
                         </li>
+-->
                         <li>
-                            <a class="page-scroll" href="#contact">Contact</a>
+                            <a class="page-scroll" href="#contact">Contacto</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#fame-sei">O nosso site</a>
                         </li>
                     </ul>
                 </div>
@@ -97,7 +102,35 @@ include 'src/config.php';
             <div class="container">
                 <!--<div class="container-fluid">-->
                 <div class="row">
-                    <div class="col-xs-12 col-lg-offset-1 col-lg-10" >
+                    <div class=" col-lg-2 " >
+                        <div class="row">
+                            <?php
+                            for ($index = 1; $index <= 3; $index++) {
+                                ?>
+                                <div class=" col-xs-12">
+                                    <a class="filter-title" href="#filter">
+                                        <h1>Filter</h1>
+                                    </a>
+                                    <a class="filter-list-item" href="#index">
+                                        <?php
+                                        $img_src = sprintf($thumb_mask, $index);
+                                        /* d($index); */
+                                        echo "<img src='{$img_src}' />";
+                                        ?>
+                                        <div class="title">
+                                            FAME Porto
+                                        </div>
+                                        <div class="detail">
+                                            27/01/2016
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class=" col-lg-9 " style="margin-left: 55px" >
 
                         <div class="main-video">
                             <video class="video-js vjs-default-skin"
@@ -112,12 +145,13 @@ include 'src/config.php';
 
                             </video>
                         </div>
-                        <h1>FAME Porto - brincadeiras de TV e Moda na aula de José Figueiras</h1>
-                        <!--                        
-                                                <p>
-                                                    lipsum
-                                                </p>
-                        -->
+                        <h1 class="video-title">FAME Porto - brincadeiras de TV e Moda na aula de José Figueiras</h1>
+                       
+                    </div>
+                    <div class=" col-lg-12 " >
+                        <div class="row">
+                            <?php include 'src/list-slider.php' ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,7 +166,7 @@ include 'src/config.php';
                         <h1>List</h1>
 
                         <div class="row">
-                            <?php include 'src/list.php' ?>
+                            <?php //include 'src/list.php' ?>
                         </div>
                     </div>
                 </div>

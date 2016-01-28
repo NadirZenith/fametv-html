@@ -51,7 +51,7 @@ $(function () {
         }
     });
 
-
+/*
     var waypoint = new Waypoint({
         element: document.getElementById('home'),
         offset: '-50px',
@@ -70,10 +70,22 @@ $(function () {
             }
         }
     });
+ */
+    var $body = $('body');
+    var $navbar = $(".navbar-fixed-top");
+     $(window).scroll(function () {
+         if ($(".navbar").offset().top > 50) {
+            $body.addClass('show-list');
+             $navbar.addClass("top-nav-collapse");
+         } else {
+            $body.removeClass('show-list');
+            $body.removeClass('show-video');
+            $navbar.removeClass("top-nav-collapse");
+         }
+     });
 
     var doc = document.documentElement;
     var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    var $body = $('body');
 
     $('.video-list-item').on('click', function () {
         $body.addClass('show-video');

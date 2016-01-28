@@ -19,21 +19,27 @@ if (isset($_GET['switch_branch'])) {
     $branchs = [];
 
     exec('git branch ', $git_branch);
-    foreach ($git_branch as $branch) {
-        $is_current = strpos($branch, '*') !== false;
-        $branch_name = trim(trim($branch, '*'));
-        ?>
-        <div id="nz-git-switch">
-            <ul>
+    /* dd($git_branch); */
+    ?>
+    <div id="nz-git-switch">
+        <ul>
+            <?php
+            foreach ($git_branch as $branch) {
+                $is_current = strpos($branch, '*') !== false;
+                $branch_name = trim(trim($branch, '*'));
+                ?>
                 <li>
                     <?php
+                    /*d($branch);*/
                     echo sprintf($switch_link, $branch_name, $branch);
                     ?>
                 </li>
-            </ul>
-        </div>
-        <?php
-    }
+                <?php
+            }
+            ?>
+        </ul>
+    </div>
+    <?php
 }
 ?>
 <style>

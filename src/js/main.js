@@ -51,43 +51,44 @@ $(function () {
         }
     });
 
-/*
-    var waypoint = new Waypoint({
-        element: document.getElementById('home'),
-        offset: '-50px',
-        handler: function (direction) {
-            console.log('works', direction);
-            var $body = $('body');
-            var $navbar = $(".navbar-fixed-top");
-            if ('down' === direction) {
-                $body.addClass('show-list');
-                $navbar.addClass("top-nav-collapse");
-
-            } else {
-                $body.removeClass('show-list');
-                $body.removeClass('show-video');
-                $navbar.removeClass("top-nav-collapse");
-            }
-        }
-    });
- */
+    /*
+     var waypoint = new Waypoint({
+     element: document.getElementById('home'),
+     offset: '-50px',
+     handler: function (direction) {
+     console.log('works', direction);
+     var $body = $('body');
+     var $navbar = $(".navbar-fixed-top");
+     if ('down' === direction) {
+     $body.addClass('show-list');
+     $navbar.addClass("top-nav-collapse");
+     
+     } else {
+     $body.removeClass('show-list');
+     $body.removeClass('show-video');
+     $navbar.removeClass("top-nav-collapse");
+     }
+     }
+     });
+     */
     var $body = $('body');
     var $navbar = $(".navbar-fixed-top");
-     $(window).scroll(function () {
-         if ($(".navbar").offset().top > 50) {
+    $(window).scroll(function () {
+        if ($(".navbar").offset().top > 50) {
             $body.addClass('show-list');
-             $navbar.addClass("top-nav-collapse");
-         } else {
+            $navbar.addClass("top-nav-collapse");
+        } else {
             $body.removeClass('show-list');
             $body.removeClass('show-video');
             $navbar.removeClass("top-nav-collapse");
-         }
-     });
+        }
+    });
 
     var doc = document.documentElement;
     var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
 
-    $('.video-list-item').on('click', function () {
+    $('#list').on('click', '.video-list-item', function (e) {
+        e.preventDefault();
         $body.addClass('show-video');
         top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     });

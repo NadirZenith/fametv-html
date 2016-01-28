@@ -97,7 +97,7 @@ include 'src/config.php';
             <div class="container">
                 <!--<div class="container-fluid">-->
                 <div class="row">
-                    <div class="col-sm-12" >
+                    <div class="col-xs-12 col-lg-offset-1 col-lg-10" >
 
                         <div class="main-video">
                             <video class="video-js vjs-default-skin"

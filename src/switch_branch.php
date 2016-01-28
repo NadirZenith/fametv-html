@@ -9,6 +9,7 @@ if (isset($_GET['switch_branch'])) {
 
     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $url = preg_replace('/\?.*/', '', $actual_link);
+    sleep(3);
 
     echo '<script type="text/javascript">
            window.location = "' . $url . '"

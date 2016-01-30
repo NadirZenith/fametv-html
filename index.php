@@ -99,11 +99,9 @@ include 'src/config.php';
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-lg-offset-1 col-lg-10" >
-
                         <div class="main-video">
                             <video class="video-js vjs-default-skin"
-                                   controls preload="auto" 
-                                   data-setup='{"controls":true}'
+                                   controls autoplay preload="auto" 
                                    >
                                 <source src="src/video/video<?php echo rand(1, 4) ?>.mp4" type='video/mp4'>
                                 <p class="vjs-no-js">

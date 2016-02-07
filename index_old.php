@@ -1,3 +1,7 @@
+<?php
+include 'nzdebug.php';
+include 'src/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +11,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>FameTv</title>
+        <title>Fame Tv</title>
 
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -35,7 +39,7 @@
     </head>
     
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-<div id="debug" style="position:fixed; top:0; right: 0; width: 150px; height: 25px; z-index: 10000;">I'm here</div>
+
     <div id="header">
         
         <!-- Navigation -->
@@ -62,7 +66,7 @@
                             <a class="page-scroll" href="#home"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="/page/about">About</a>
+                            <a class="page-scroll" href="/page/contact">Contact</a>
                         </li>
 <!--                        
 -->
@@ -94,9 +98,56 @@
     </div>
 
     <div id="app">
-        <div class="page_holder" id="page_holder_1"></div>
-        <div class="page_holder" id="page_holder_2"></div>
+        <div class="page_holder" id="page_holder_1">
+        
+            <!-- Home Section -->
+            <section id="home" class="full-section primary">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-offset-1 col-lg-10" >
+                            <div class="main-video">
+                                <video class="video-js vjs-default-skin"
+                                controls
+                                >
+                                <!-- controls autoplay preload="auto"  -->
+                                <source src="http://nz.lab/fametv-html/src/video/video<?php echo rand(1, 4) ?>.mp4" type='video/mp4'>
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                    </p>
 
+                                </video>
+                            </div>
+                            <h1>FAME Porto - brincadeiras de TV e Moda na aula de José Figueiras</h1>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- List Section -->
+            <section id="list" class="full-section secondary">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1>List</h1>
+
+                            <div class="row">
+                                <?php 
+                                include 'src/list.php' 
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <script type="text/javascript">
+                var initListItems = <?php echo json_encode( $list_items) ?>;
+            </script>
+            
+        </div>
+
+        <div class="page_holder" id="page_holder_2"></div>
         <div id="loader"></div>
     </div>
     <!-- /#app -->

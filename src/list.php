@@ -1,15 +1,18 @@
 <?php
-for ($index = 1; $index <= 8; $index++) {
+foreach ($list_items as $item) {
+    // d($item);
     ?>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <a class="video-list-item" href="#index">
+    <a class="video-list-item" href="/show/<?php echo $item['id'] ?>">
             <?php
-            $img_src = sprintf($thumb_mask, $index);
+            // $img_src = sprintf($thumb_mask, $index);
             /* d($index); */
-            echo "<img src='{$img_src}' />";
+            echo "<img alt='img-title' src='/fametv-html/{$item['thumb']}' />";
             ?>
             <div class="title">
-                FAME Porto - brincadeiras de TV e Moda na aula de José Figueiras
+                <?php
+                echo $item['title'];
+                ?>
             </div>
             <div class="detail">
                 27/01/2016
@@ -18,4 +21,3 @@ for ($index = 1; $index <= 8; $index++) {
     </div>
     <?php
 }
-?>

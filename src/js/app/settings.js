@@ -10,11 +10,18 @@ if (debug) {
         templatePath: site_path + '/fametv-html/src/js/app/tpls/',
     };
 } else {
-
+/*
+ * 
     var config = {
         rootPath: '/fame/fametv/web/app.php',
         apiEntryPoint: site_path + '/fame/fametv/web/app.php/api/',
         templatePath: site_path + '/fametv-html/src/js/app/tpls/',
+    };
+ */
+    var config = {
+        rootPath: '/',
+        apiEntryPoint: site_path + '/',
+        templatePath: site_path + '/bundles/app/front-end/src/js/app/tpls/',
     };
 
 }

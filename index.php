@@ -23,7 +23,7 @@
         </style>
         </noscript>
         <script type="text/javascript">
-           var site_path = '//'+window.location.host;
+            var site_path = '//' + window.location.host;
         </script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -33,77 +33,76 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    
+
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-<div id="debug" style="position:fixed; top:0; right: 0; width: 150px; height: 25px; z-index: 10000;">I'm here</div>
-    <div id="header">
-        
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <!--<div class="container-fluid">-->
-            <div class="container">
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand page-scroll" href="/">
-                        <img class="logo-img" alt="Fame Tv Logo" src="http://nz.lab/fametv-html/src/img/fametv-logo.png" >
-                    </a>
+        <div id="header">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <!--<div class="container-fluid">-->
+                <div class="container">
+                    <div class="navbar-header page-scroll">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand page-scroll" href="/">
+                            <img class="logo-img" alt="Fame Tv Logo" src="http://nz.lab/fametv-html/src/img/fametv-logo.png" >
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                            <li class="hidden">
+                                <a class="page-scroll" href="#home"></a>
+                            </li>
+                            <li>
+                                <a class="page-scroll" href="/page/about">About</a>
+                            </li>
+                            <!--                        
+                            -->
+                        </ul>
+                    </div>
+                    <div class="socials pull-right">
+                        <ul>
+                            <li>
+                                <a href="" target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" target="_blank">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
                 </div>
+                <!-- /.container -->
+            </nav>
+        </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav">
-                        <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                        <li class="hidden">
-                            <a class="page-scroll" href="#home"></a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="/page/about">About</a>
-                        </li>
-<!--                        
--->
-                    </ul>
-                </div>
-                <div class="socials pull-right">
-                    <ul>
-                        <li>
-                            <a href="" target="_blank">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" target="_blank">
-                                <i class="fa fa-youtube"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
-    </div>
+        <div id="app">
+            <div class="page_holder" id="page_holder_1"></div>
+            <div class="page_holder" id="page_holder_2"></div>
 
-    <div id="app">
-        <div class="page_holder" id="page_holder_1"></div>
-        <div class="page_holder" id="page_holder_2"></div>
+            <div id="loader"></div>
+        </div>
+        <!-- /#app -->
 
-        <div id="loader"></div>
-    </div>
-    <!-- /#app -->
-
-    <!-- app-->
-    <script src="http://nz.lab/fametv-html/dist/modules.js"></script>
-    <script src="http://nz.lab/fametv-html/dist/build.min.js"></script>
+        <!-- app-->
+        <script src="http://nz.lab/fametv-html/dist/modules.js"></script>
+        <script src="http://nz.lab/fametv-html/dist/build.min.js"></script>
 
     </body>
 </html>

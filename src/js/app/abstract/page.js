@@ -99,9 +99,9 @@ var AbstractPage = Backbone.View.extend({
         var App = require('./../../app');
         var that = this;
         templateManager.fetch(this.templateName, data, function (html) {
-            /*that.$el.html('<div class="page">' + html + '</div>');*/
-            that.$el.html(html);
-            /*$('.page', "#page_holder_" + App.currentHolder).removeClass('page_loading');*/
+            that.$el.html('<div class="page">' + html + '</div>');
+            $('.page', "#page_holder_" + App.currentHolder).removeClass('page_loading');
+            /*that.$el.html(html);*/
             that.proccessWidgets();
             that.trigger('render');
             that.trigger('loaded');
@@ -118,9 +118,6 @@ var AbstractPage = Backbone.View.extend({
         if (typeof (this.holderReady) !== 'undefined' && this.holderReady === true)
             return true;
 
-        window.scrollTo(0, 0);
-
-
         var App = require('./../../app');
 
         console.log('Switching buffers');
@@ -128,7 +125,7 @@ var AbstractPage = Backbone.View.extend({
         if (typeof (App.currentHolder) !== 'undefined' && App.currentHolder == 2)
             holderToRenderTo = 1;
 
-        var holderToFadeOut = (holderToRenderTo == 1) ? 2 : 1;
+        var holderToFadeOut = (holderToRenderTo === 1) ? 2 : 1;
 
         $("#page_holder_" + holderToFadeOut).hide();
         $("#page_holder_" + holderToFadeOut).html('');

@@ -1,206 +1,237 @@
 'use strict';
-
 var App = require('./../../../app');
 var AbstractPage = require('./../../abstract/page');
 var Shows = require('./../../collection/shows');
 var Show = require('./../../model/show');
-var ShowsList = require('./../parts/showsList');
-var ShowItem = require('./../parts/show');
 
+var ListView = require('./../parts/index/listView');
+var ItemView = require('./../parts/index/itemView');
 // index.js
 var Index = AbstractPage.extend({
     templateName: 'pages/index',
     category: 'home',
-    shows: null,
-    show: null,
-    current_show_id: false,
+    shows: null, //shows collection
+    show: null, //show model
+    /*current_show_id: false,*/
     player_active: true,
+    loading_more: false,
     autoplay: true,
+    events: {
+        "click .filters button.list-group-item": "filterCollection",
+        "click .filters button.search": "filterSearch",
+        "keyup .filters #search-input": "filterSearch"
+                /*"click .load-more": "loadMore",*/
+    },
+    filterCollection: function (e) {
+        e.preventDefault();
+        this.resetFilters();
+        var $btn = $(e.currentTarget);
+        $btn.addClass('active');
+
+        this.parts.listView.setLoading(true);
+        var filter = $btn.data('filter');
+        if (filter) {
+            this.shows.queryParams.collection = filter;
+        }
+        this.shows.getFirstPage({fetch: true, reset: true, resetState: true});
+
+    },
+    filterSearch: function (e) {
+        if (e.keyCode === 13 || e.type === "click") {
+            this.parts.listView.setLoading(true);
+            e.preventDefault();
+            var val = $('#search-input').val();
+            this.resetFilters();
+            this.shows.queryParams.search = encodeURIComponent(val);
+            this.shows.getFirstPage({fetch: true, reset: true, resetState: true});
+        }
+
+    },
+    resetFilters: function () {
+        var $filters = $('.filters button');
+        $filters.each(function () {
+            $(this).removeClass('active');
+        });
+        $('#search-input').val('');
+        this.shows.queryParams.collection = null;
+        this.shows.queryParams.search = null;
+    },
+    initialize: function (params) {
+        window.scrollTo(0, 0);
+        this.renderLoading();
+        var self = this;
+        self.show = new Show();
+        self.shows = new Shows();
+
+        if (params.id) {
+            /*this.current_show_id = params.id;*/
+            self.show.set("id", params.id);
+        }
+
+        var $body = $('body');
+        this.on('index:show-video', function () {
+            $body.removeClass('hide-video');
+        });
+        this.on('index:hide-video', function () {
+            $body.addClass('hide-video');
+        });
+        this.on('render', this.domEvents);
+        this.render();
+    },
     title: function () {
-        var title = 'Homepage'
-        if (this.show && this.show.get('title') !== null) {
-            title = this.show.get('title');
+        var title = 'Homepage';
+
+        if (this.show) {
+            var show = this.show;
+            
+            if (this.show.attributes.attributes) {
+                show = this.show.attributes;
+            } 
+
+            if (show && show.get('title') !== null) {
+                title = show.get('title');
+            }
         }
         return title;
     },
     render: function () {
-        this.initializeParts();
         this.renderHTML({});
+        this.showVideo();
     },
     domEvents: function () {
-        var $window = $(window);
-        var $body = $('body');
-        var doc = document.documentElement;
-        var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        this.initializeParts();
         var self = this;
         var $navbar = $(".navbar");
+        var $window = $(window);
+        var $document = $(document);
+        $window.on('scroll.index', function () {
 
-        $(window).on('scroll.index', function () {
-            $($('#debug').text(window.pageYOffset));
-
-            if ($navbar.offset().top > 30) {
-                /*if ($(".navbar").offset().top > 30) {*/
-                self.player_active = false;
-                self.trigger('index:browse-list');
-
+            if ($navbar.offset().top > 50) {
+                self.showList();
             } else {
-                self.player_active = true;
-                self.trigger('index:reach-top');
-
+                self.showVideo();
             }
 
-            var newTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-            if (newTop !== top) {
-                $body.removeClass('show-video');
+            if ($window.scrollTop() + $window.height() > $document.height() - 100) {
+                self.loadMore();
             }
-
         });
-        /*$(window).scroll();*/
-        /*
-         $('#list').on('click', '.video-list-item', function (e) {
-         $body.addClass('show-video');
-         top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-         });
-         */
-
     },
     onVideoEnded: function () {
         if (this.player_active && this.autoplay) {
-            this.showNextVideo();
+            var model = this.shows.getNext(this.show);
+            if (model) {
+                var Router = require('./../../router');
+                var href = '/show/' + model.get('id');
+                Router.navigate(href, {
+                    trigger: true
+                });
+            }
         }
-    },
-    showNextVideo: function () {
-        var model = this.shows.getNext();
-        if (model) {
-            var Router = require('./../../router');
-            Router.navigate('/show/' + model.get('id'), {
-                trigger: true
-            });
-        }
-
     },
     sleep: function () {
+        this.shows.reset();
+        this.resetFilters();
+        /*alert('sleep');*/
+
         $(window).off('scroll.index');
         AbstractPage.prototype.sleep.call(this /*, args...*/);
     },
-    initialize: function (params) {
-        this.renderLoading();
-        this.on('render', this.domEvents);
-
-        if (params.id) {
-            this.current_show_id = params.id;
-        }
-
-        var self = this;
-        this.on('index:reach-top', function () {
-
-            $('body').removeClass('show-list');
-            $('body').removeClass('show-video');
-            if (self.parts.showView) {
-                /*self.parts.showView.play();*/
-                /*console.log('play', self.show);*/
-                /*self.show.play();*/
-            }
-
-        });
-
-        this.on('index:browse-list', function () {
-
-            $('body').addClass('show-list');
-
-            /*var Router = require('./../../router');*/
-            /*Router.navigate('/');*/
-
-        });
-
-
-
-        this.render();
-
-    },
     update: function (params) {
-        this.current_show_id = (params.id !== false) ? params.id : false;
 
-        /*$('body').addClass('show-video');*/
-        this.trigger('index:reach-top');
-        this.player_active = true;
-        if (this.current_show_id === false) {
+        if (params.id === false) {
+            //update to top
             window.scrollTo(0, 0);
-            // renderlast
-
         } else {
 
-            this.show = this.shows.get(params.id);
-            this.parts.showView.renderItem(this.show);
+            var model = this.shows.getById(params.id);
+            if (model) {
+                this.show = model;
+                this.parts.itemView.render(this.show);
+
+            }
 
         }
-
+        this.showVideo();
         this.setTitle();
 
     },
-    initializeParts: function () {
-
-        var self = this;
-        this.initShowView(function () {
-            self.parts.showView.on('show-ended', self.onVideoEnded, self);
-        });
-
-        this.initListView(function () {
-            if (self.current_show_id === false) {
-
-                self.parts.showView.renderItem(self.shows.getFirst());
-                self.parts.showView.on('show-ended', self.onVideoEnded, self);
-            }
-
-        });
-
-        this.shows.fetch();
-
+    /**
+     * show video area triggers events
+     * */
+    showVideo: function () {
+        this.player_active = true;
+        this.trigger('index:show-video');
     },
-    initShowView: function (callback) {
+    /**
+     * show list area triggers events
+     * hide video
+     * */
+    showList: function () {
+        this.player_active = false;
+        this.trigger('index:hide-video');
+    },
+    initializeParts: function () {
         var self = this;
-        self.show = new Show();
-        if (this.current_show_id !== false) {
-            self.show.set("id", this.current_show_id);
-            this.show.fetch();
+
+        //Item View
+        self.parts.itemView = new ItemView({
+            el: '#showItem',
+            /*model: self.show*/
+        });
+        self.parts.itemView.on('show-ended', self.onVideoEnded, self);
+
+        if (!this.show.isNew()) {
+            this.show.fetch({
+                success: function (model, attributes) {
+                    self.show = model;
+                    self.parts.itemView.render(self.show);
+                    /*self.shows.add(self.show,{merge: true});*/
+                }
+            });
         }
 
-        self.parts.showView = new ShowItem({
-            model: self.show
-        });
-
-        this.show.on('change', function (evt) {
-            self.parts.showView.renderItem(self.show);
-
-            if (typeof (callback) === 'function') {
-                callback();
-            }
-        });
-
-
-    },
-    initListView: function (callback) {
-        var self = this;
-
-        self.shows = new Shows();
-        self.parts.showList = new ShowsList({
+        //List View
+        self.parts.listView = new ListView({
+            el: '#showsList',
             collection: self.shows
         });
 
-        this.shows.on('sync', function (evt) {
-            self.parts.showList.render();
-
-            if (typeof (callback) === 'function') {
-                callback();
+        this.shows.on('reset', function (evt, options) {
+            if (self.show.isNew()) {
+                self.show = self.shows.getFirst();
+                self.parts.itemView.render(self.show);
             }
-
         });
+        this.shows.getFirstPage({fetch: true, reset: true, resetState: true});
 
     },
-    stopAutoplay: function () {
+    createItemView: function (callback) {
 
-    }
 
+    },
+    createListView: function (callback) {
+        var self = this;
+
+    },
+    loadMore: function () {
+        var $listLoader = $('#list-loader');
+        $listLoader.addClass('part_loading');
+
+        var success = function () {
+            $listLoader.removeClass('part_loading');
+
+        };
+        var error = function () {
+            $listLoader.removeClass('part_loading').html($listLoader.data('end'));
+            setTimeout(function () {
+                $listLoader.fadeOut().html('').fadeIn();
+            }, 3000);
+
+        };
+
+        this.parts.listView.loadNextPage(success, error);
+
+    },
 });
-
 module.exports = Index;

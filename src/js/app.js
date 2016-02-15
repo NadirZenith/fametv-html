@@ -86,35 +86,33 @@ module.exports = {
         // undelegate events from previous page
         if (typeof (this.page) !== 'undefined' && this.page) {
             console.log('sleep app.js', this.page.parts);
-            /*debugger;*/
             this.page.sleep();
         }
 
         if (fromStack !== false) {
             /// Console log wake up page from stack
             console.log('Showing page from stack');
+            
             this.page = fromStack;
             this.page.wakeUp();
-            /*this.loadingStatus(false);*/
+            this.loadingStatus(false);
 
         } else {
             /// or create new one
-            console.log('Loading new page');
-            /*this.loadingStatus(true);*/
+            console.log('Creating new page');
+
+            this.loadingStatus(true);
             this.page = new this.Views.Pages[pageName](params);
-            /*            
-             this.page.on('loaded', function () {
-             this.loadingStatus(false);
-             }, this);
-             
-             if (this.page.isReady)
-             this.loadingStatus(false);
-             * */
+            this.page.on('loaded', function () {
+                this.loadingStatus(false);
+            }, this);
+
+            if (this.page.isReady)
+                this.loadingStatus(false);
 
             viewStack.addView(pageName, params, this.page, _hash);
         }
         console.groupEnd();
-
 
         return true;
     },
@@ -140,14 +138,14 @@ module.exports = {
             // $('html').animate({
             //     opacity: 0
             // }, 1000);
-            //$('#preloader').stop().show();
+            $('#preloader').stop().show();
         } else {
             console.log('app.js | Loading status = false');
             this.isLoading = false;
             $('html').animate({
                 opacity: 1
             }, 1000);
-            //$('#preloader').stop().fadeOut('slow');
+            $('#preloader').stop().fadeOut('slow');
         }
     },
     renderLayoutBlocks: function () {

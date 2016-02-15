@@ -6,8 +6,15 @@ $data = array(
     [
         'id' => 1,
         'title' => '1111111111111',
-        'thumb' => sprintf($thumb_mask, 1),
-        'video' => sprintf($video_mask, 1)
+        /*'thumb' => sprintf($thumb_mask, 1),*/
+        'video' => sprintf($video_mask, 1),
+        'video' => array(
+            'id' => 1,
+            'preview' => sprintf($thumb_mask, 1),
+            'reference' => sprintf($video_mask, 1),
+            'html' => sprintf($video_mask, 1),//real api is video html
+            
+        )
     ], [
         'id' => 2,
         'title' => '2222222222222',
@@ -53,5 +60,5 @@ if (isset($_GET['id'])) {
     echo json_encode($data[$_GET['id'] -1]);
     exit();
 }
-$data = array_slice($data, 5);
+/*$data = array_slice($data, 5);*/
 echo json_encode($data);

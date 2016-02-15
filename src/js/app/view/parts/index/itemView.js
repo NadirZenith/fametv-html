@@ -1,13 +1,15 @@
 'use strict';
 
-var App = require('./../../../app');
-var templateManager = require('./../../template_manager');
+var App = require('./../../../../app');
+var social_config = require('./../../../social_config');
+var templateManager = require('./../../../template_manager');
+/*var rrssb = require('rrssb');*/
 
 var Backbone = require('backbone');
 var videojs = require('video.js');
 
-// ShowsList.js
-var show = Backbone.View.extend({
+// itemView.js
+var itemView = Backbone.View.extend({
     templateName: 'parts/show',
     userPaused: false,
     events: {
@@ -18,29 +20,41 @@ var show = Backbone.View.extend({
         /*alert('click');*/
         /*this.userPaused = !this.userPaused;*/
     },
-    render: function () {
-        console.log(__filename);
-
-        this.setElement($('#showItem'));
-        this.renderItem(this.model);
+    initialize: function (options) {
+        this.$el.addClass('part_loading');
     },
-    renderItem: function (model) {
+    render: function (model) {
+        /*        
+         if (typeof (model.attributes.bind) === 'function') {
+         model = model.attributes;
+         }
+         * */
+        if (model.attributes.attributes) {
+            model = model.attributes;
+        }
         var data = {
             model: model
         };
 
-        this.setElement($('#showItem'));
-
-        /*$('body').addClass('show-video');*/
-
         var self = this;
 
         templateManager.fetch(this.templateName, data, function (html) {
+
             self.$el.html(html);
             var video = self.getPlayer();
+
             video.on('ended', function () {
                 self.trigger('show-ended');
             });
+
+            self.$el.removeClass('part_loading');
+
+
+            var sharer = new ShareButton(social_config);
+
+            /*sharer.open();*/
+            $('.fb-like').data('href', sharer.config.url);
+            FB.XFBML.parse();
 
         });
     },
@@ -51,24 +65,23 @@ var show = Backbone.View.extend({
         if (isPlaying) {
             return;
         }
-        console.log('heheh', this.paused);
         if (this.userPaused) {
             return;
         }
 
-        /*var player = player.paused();*/
-
         player.play();
+    },
+    pause: function () {
+        var player = this.getPlayer();
+
+        player.pause();
+
     },
     getPlayer: function () {
         var video = videojs(document.getElementById('main-video'));
         return video;
 
     },
-    initialize: function (options) {
-
-    }
-
 });
 
-module.exports = show;
+module.exports = itemView;

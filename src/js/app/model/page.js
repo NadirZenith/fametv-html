@@ -7,15 +7,11 @@ var Backbone = require('backbone');
 var Page = Backbone.Model.extend({
     defaults: {
         title: null,
-        thumb: null,
-        video: null,
+        url: null,
+        content: null,
     },
     url: function () {
-        //api
         return settings.apiEntryPoint + 'page/pages/' + this.id + '.json';
-
-        //dev
-        return settings.apiEntryPoint + 'shows.php?id=' + this.id;
     },
 });
 

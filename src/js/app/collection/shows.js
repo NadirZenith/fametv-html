@@ -2,6 +2,7 @@
 var settings = require('./../settings');
 var Show = require('./../model/show');
 var PageableCollection = require("backbone.paginator");
+var _ = require("underscore");
 // shows.js
 var Shows = PageableCollection.extend({
     model: Show,

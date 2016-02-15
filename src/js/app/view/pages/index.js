@@ -132,6 +132,7 @@ var Index = AbstractPage.extend({
     sleep: function () {
         this.shows.reset();
         this.resetFilters();
+        this.player_active = false;
         /*alert('sleep');*/
 
         $(window).off('scroll.index');

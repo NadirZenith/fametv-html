@@ -50,12 +50,23 @@ gulp.task('app', function () {
         debug: true,
         paths: ['./node_modules']
     });
+    /*
+     require('dotenv').config();
+     var env = (process.env.DEBUG) ? 'DEV' : '';
+     aliasifyConfig = {
+     aliases: {
+     "config": "./src/js/config" + env + ".js"
+     },
+     verbose: false
+     };
+     */
     bundler
+            /*.transform(aliasify, aliasifyConfig)*/
             /*.transform({global: true}, aliasify) //see: https://gist.github.com/malte-wessel/8a295bc604c4a0d0dbe1 */
             .bundle()
             .pipe(source('build.min.js'))
-            .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-            .pipe(uglify())
+            /*.pipe(buffer()) // <----- convert from streaming to buffered vinyl file object*/
+            /*.pipe(uglify())*/
             .pipe(gulp.dest('./dist'));
 });
 

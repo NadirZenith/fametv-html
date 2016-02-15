@@ -1,4 +1,5 @@
 'use strict';
+var Backbone = require('backbone');
 
 // header.js
 module.exports = Backbone.View.extend({

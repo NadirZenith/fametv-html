@@ -3,7 +3,7 @@
 var App = require('./../../../../app');
 var social_config = require('./../../../social_config');
 var templateManager = require('./../../../template_manager');
-/*var rrssb = require('rrssb');*/
+var ShareButton = require('./../../../../../../node_modules/share-button/dist/share-button.min.js');
 
 var Backbone = require('backbone');
 var videojs = require('video.js');

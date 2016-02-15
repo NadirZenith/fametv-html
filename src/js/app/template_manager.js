@@ -2,6 +2,7 @@
 
 var settings = require('./settings');
 var localStorage = require('./local_storage');
+var _ = require('underscore');
 
 // template_manager.js
 var templateManager = {

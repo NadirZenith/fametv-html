@@ -1,6 +1,7 @@
 'use strict';
 
 var settings = require('./../settings');
+var Backbone = require('backbone');
 
 // page.js
 var Page = Backbone.Model.extend({

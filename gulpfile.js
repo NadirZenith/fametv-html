@@ -1,45 +1,23 @@
+//global
 var gulp = require('gulp');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-
 var concat = require('gulp-concat');
-var less = require('gulp-less');
-/*var less = require('gulp-less-sourcemap');*/
-var minifyCSS = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
+
+//styles
+var less = require('gulp-less');
+var minifyCSS = require('gulp-minify-css');
+
+//scripts
+var browserify = require('browserify');
+var aliasify = require('aliasify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');//see: http://stackoverflow.com/questions/24992980/how-to-uglify-output-with-browserify-in-gulp
+var uglify = require('gulp-uglify');
 
 var path = {
     dist: 'dist/',
     node_modules: 'node_modules/'
 };
-
-gulp.task('modules', function () {
-    gulp.src([
-        'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/video.js/dist/video.min.js',
-        'node_modules/jquery.easing/jquery.easing.min.js',
-        'node_modules/lodash/lodash.js',
-        'node_modules/backbone/backbone-min.js',
-        'node_modules/mprogress/mprogress.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        'node_modules/share-button/dist/share-button.min.js',
-    ])
-            .pipe(sourcemaps.init())
-            .pipe(concat('modules.js'))
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest(path.dist));
-
-});
-
-gulp.task('scripts', function () {
-    gulp.src([
-        'src/js/*.js',
-    ])
-            .pipe(sourcemaps.init())
-            .pipe(concat('app.js'))
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest(path.dist));
-});
 
 gulp.task('styles', function () {
     gulp.src([
@@ -52,19 +30,37 @@ gulp.task('styles', function () {
             .pipe(gulp.dest(path.dist));
 });
 
+gulp.task('modules', function () {
+    gulp.src([
+        'node_modules/jquery/dist/jquery.min.js',
+        'node_modules/jquery.easing/jquery.easing.min.js',
+        'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    ])
+            .pipe(sourcemaps.init())
+            .pipe(concat('modules.js'))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest(path.dist));
+
+});
+
 gulp.task('app', function () {
-    browserify({
+
+    var bundler = browserify({
         entries: ['src/js/main.js'],
         debug: true,
         paths: ['./node_modules']
-    })
+    });
+    bundler
+            /*.transform({global: true}, aliasify) //see: https://gist.github.com/malte-wessel/8a295bc604c4a0d0dbe1 */
             .bundle()
             .pipe(source('build.min.js'))
+            .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+            .pipe(uglify())
             .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('default', function () {
-    gulp.run('scripts', 'styles', 'app');
+    gulp.run('modules', 'styles', 'app');
 
     gulp.watch('src/js/**', function (event) {
         gulp.run('app');

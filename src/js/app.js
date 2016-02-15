@@ -2,11 +2,7 @@
 
 var settings = require('./app/settings');
 var viewStack = require('./app/view_stack');
-// var LayoutManager = require('backbone.layoutmanager');
-// console.log(settings);
-/*var Router = require('./app/router');*/
-
-
+var Mprogress = require('../../node_modules/mprogress/mprogress.min');
 
 module.exports = {
     Models: {},

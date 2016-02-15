@@ -2,6 +2,7 @@
 
 var App = require('./../app');
 var settings = require('./settings');
+var Backbone = require('backbone');
 
 // router.js
 var Router = Backbone.Router.extend({

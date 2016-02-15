@@ -5,6 +5,7 @@ var templateManager = require('./../template_manager');
 var settings = require('./../settings');
 var log = require('./../log');
 var viewStack = require('./../view_stack');
+var Backbone = require('backbone');
 
 // page.js
 var AbstractPage = Backbone.View.extend({

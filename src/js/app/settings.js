@@ -1,28 +1,14 @@
 'use strict';
-
-var debug = (typeof (app_debug) !== 'undefined' && app_debug) ? true : false;
-
-if (debug) {
-    //site_path = //example.com
-    var config = {
-        rootPath: '/fame/fametv/web/app_dev.php',
-        apiEntryPoint: site_path + '/fame/fametv/web/app_dev.php/api/',
-        templatePath: site_path + '/fame/fametv/web/bundles/app/front-end/src/js/app/tpls/',
-    };
-} else {
-
-    var config = {
-        rootPath: '/',
-        apiEntryPoint: site_path + '/api/',
-        templatePath: site_path + '/bundles/app/front-end/src/js/app/tpls/',
-    };
-
+if (typeof (conf) === 'undefined') {
+    throw new ReferenceError('Main conf not available', __filename);
 }
 var paths = {
-    rootPath: config.rootPath,
-    apiEntryPoint: config.apiEntryPoint,
-    templatePath: config.templatePath,
+    site: conf.site,
+    rootPath: conf.root,
+    apiEntryPoint: conf.api,
+    templatePath: conf.tpl,
 };
+var debug = conf.debug;
 
 // settings.js
 var settings = {
@@ -36,7 +22,7 @@ var settings = {
     // templatePath = rootPath + '/js/tpls/
     templatePath: paths.templatePath,
     //
-    version: (typeof (app_version) !== 'undefined') ? app_version : '',
+    version: (typeof (conf.ver) !== 'undefined') ? conf.ver : '',
     debug: debug,
     title: function (title) {
         return title + ' | ' + 'FameTV';
@@ -61,9 +47,7 @@ var settings = {
         pushState: true,
         startSilent: false
     },
-    inviteMode: true,
-    site_path: site_path,
-    invite_mode: this.inviteMode,
+    site_path: paths.site,
     client_side: true,
 };
 
@@ -80,7 +64,7 @@ var defaultConsole = {
     group: function () {
     },
     groupEnd: function () {
-    },
+    }
 };
 
 window.debug = function (bool) {
@@ -101,7 +85,7 @@ window.debug = function (bool) {
             alert('no console available');
         }
     }
-}
+};
 window.debug(settings.debug);
 
 

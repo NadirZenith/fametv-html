@@ -64,9 +64,11 @@ gulp.task('app', function () {
             /*.transform(aliasify, aliasifyConfig)*/
             /*.transform({global: true}, aliasify) //see: https://gist.github.com/malte-wessel/8a295bc604c4a0d0dbe1 */
             .bundle()
-            .pipe(source('build.min.js'))
+            .pipe(source('build.js'))
             .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+    .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('./dist'));
 });
 

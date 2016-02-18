@@ -1,26 +1,32 @@
 'use strict';
 
 var settings = require('./settings');
+
+function buildHash(hash, params) {
+    if (typeof (params) !== 'undefined') {
+        for (var k in params) {
+            if (typeof (params[k].id) !== 'undefined')
+                hash += '-' + k + '_id' + params[k].id;
+            else
+                hash += '-' + k + '_' + params[k];
+        }
+    }
+    return hash;
+}
+
 // view_stack.js
-var viewStack = {
+module.exports = {
     stack: {},
     inStackCount: 0,
     addView: function (name, params, view, full_hash) {
         if (!settings.enablePagesStack)
             return false;
 
+        full_hash = typeof full_hash !== 'undefined' ? full_hash : true;
+
         var hash = name;
         if (full_hash) {
-
-            if (typeof (params) !== 'undefined') {
-
-                for (var k in params) {
-                    if (typeof (params[k].id) !== 'undefined')
-                        hash += '-' + k + '_id' + params[k].id;
-                    else
-                        hash += '-' + k + '_' + params[k];
-                }
-            }
+            hash = buildHash(hash, params);
         }
 
         console.log('addView | hash: %s', hash);
@@ -37,17 +43,12 @@ var viewStack = {
         if (!settings.enablePagesStack)
             return false;
 
+        full_hash = typeof full_hash !== 'undefined' ? full_hash : true;
+
+
         var hash = name;
         if (full_hash) {
-
-            if (typeof (params) !== 'undefined') {
-                for (var k in params) {
-                    if (typeof (params[k].id) !== 'undefined')
-                        hash += '-' + k + '_id' + params[k].id;
-                    else
-                        hash += '-' + k + '_' + params[k];
-                }
-            }
+            hash = buildHash(hash, params);
         }
 
         if (typeof (this.stack[hash]) !== 'undefined')
@@ -81,4 +82,3 @@ var viewStack = {
     }
 };
 
-module.exports = viewStack;

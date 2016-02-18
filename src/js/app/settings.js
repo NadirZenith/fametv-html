@@ -14,7 +14,8 @@ var debug = conf.debug;
 var settings = {
     //site_path = //example.com
     // sitePath = http://example.com (:80)
-    sitePath: window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : ''),
+    /*sitePath: window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : ''),*/
+    sitePath: paths.site,
     // rootPath = /web/app_dev.php
     rootPath: paths.rootPath,
     // apiEntryPoint = rootPath + '/api/
@@ -66,7 +67,6 @@ var defaultConsole = {
     groupEnd: function () {
     }
 };
-
 window.debug = function (bool) {
     if (window.console) {
         var consoleHolder = console;
@@ -82,7 +82,7 @@ window.debug = function (bool) {
     } else {
         window.console = defaultConsole;
         if (bool) {
-            alert('no console available');
+            //no console available
         }
     }
 };

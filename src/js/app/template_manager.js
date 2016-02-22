@@ -14,43 +14,10 @@ var templateManager = {
     _initialized: false,
     initialize: function () {
 
-        // jSmart.prototype.getTemplate = function(name) {
-        // 	if (name.indexOf('shared/widgets/') === 0) {
-        // 		/// It's a widget!
-        // 		var widgetName = name.split('shared/widgets/').join('').split('.tpl').join('');
-        // 		console.log('template_manager.js | Including widget "' + widgetName + '"');
-
-        // 		return '<div class="widget client-side-widget client-side-widget-' + widgetName + '" id="widget_' + (Math.random() + '').split('0.').join('') + '" data-widget-name="' + widgetName + '"></div>';
-        // 	}
-
-        // 	if (typeof(App.templateManager._templates[name]) !== 'undefined') {
-        // 		return App.templateManager._cache[name];
-        // 	} else {
-        // 		throw new Error('Template ' + name + ' is not yet loaded');
-        // 	}
-        // };
         _.template.formatdate = function (stamp) {
 
             return moment(stamp).format('L');
-            /*
-             var d = new Date(stamp); // or d = new Date(date*1000)
-             
-             if (Object.prototype.toString.call(d) === "[object Date]") {
-             if (!isNaN(d.getTime())) {  // d.valueOf() could also work
-             // date is not valid
-             var date = [
-             d.getDate(),
-             d.getMonth() + 1,
-             d.getFullYear()
-             ], time = [
-             d.getHours(),
-             d.getMinutes(),
-             ];
-             return date.join('/') + ' ' + time.join(':');
-             }
-             }
-             return 'n/v';
-             */
+           
         };
 
 

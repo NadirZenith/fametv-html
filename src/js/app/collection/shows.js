@@ -11,7 +11,7 @@ var Shows = PageableCollection.extend({
     /*mode: "server",*/
     // Initial pagination states
     state: {
-        pageSize: 3,
+        pageSize: 12,
         /*sortKey: "publication_date_start",*/
         order: 1,
         /*collection: null*/

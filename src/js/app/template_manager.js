@@ -3,6 +3,7 @@
 var settings = require('./settings');
 var localStorage = require('./local_storage');
 var _ = require('underscore');
+var moment = require('moment');
 
 // template_manager.js
 var templateManager = {
@@ -30,23 +31,26 @@ var templateManager = {
         // };
         _.template.formatdate = function (stamp) {
 
-            var d = new Date(stamp); // or d = new Date(date*1000)
-
-            if (Object.prototype.toString.call(d) === "[object Date]") {
-                if (!isNaN(d.getTime())) {  // d.valueOf() could also work
-                    // date is not valid
-                    var date = [
-                        d.getDate(),
-                        d.getMonth() + 1,
-                        d.getFullYear()
-                    ], time = [
-                        d.getHours(),
-                        d.getMinutes(),
-                    ];
-                    return date.join('/') + ' ' + time.join(':');
-                }
-            }
-            return 'n/v';
+            return moment(stamp).format('L');
+            /*
+             var d = new Date(stamp); // or d = new Date(date*1000)
+             
+             if (Object.prototype.toString.call(d) === "[object Date]") {
+             if (!isNaN(d.getTime())) {  // d.valueOf() could also work
+             // date is not valid
+             var date = [
+             d.getDate(),
+             d.getMonth() + 1,
+             d.getFullYear()
+             ], time = [
+             d.getHours(),
+             d.getMinutes(),
+             ];
+             return date.join('/') + ' ' + time.join(':');
+             }
+             }
+             return 'n/v';
+             */
         };
 
 

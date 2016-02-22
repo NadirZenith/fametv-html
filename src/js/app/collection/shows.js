@@ -32,7 +32,7 @@ var Shows = PageableCollection.extend({
         collection: null,
     },
     comparator: function (model) {
-        return model.get('publication_date_start');
+        return -model.get('publication_date_start');
     },
     parseLinks: function (resp, options) {
 

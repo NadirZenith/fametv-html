@@ -8,7 +8,6 @@ describe('View Stack', function () {
     var $;
     var Backbone;
     var viewStack;
-    var SampleView;
 
     jsdom({
         console: false
@@ -79,24 +78,6 @@ describe('View Stack', function () {
     });
 // @todo: clear, removeOld
 // 
-
-
-
-
-
-    describe('Examples', function () {
-        //examples
-        it('has document', function () {
-            var div = document.createElement('div')
-            expect(div.nodeName).eql('DIV')
-        });
-        it('jquery works', function () {
-            document.body.innerHTML = '<div>hola</div>'
-            expect($("div").html()).eql('hola')
-        });
-    });
-
-
 
 
 });

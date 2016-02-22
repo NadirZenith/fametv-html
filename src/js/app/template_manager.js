@@ -4,6 +4,7 @@ var settings = require('./settings');
 var localStorage = require('./local_storage');
 var _ = require('underscore');
 var moment = require('moment');
+require('moment/locale/pt');
 
 // template_manager.js
 var templateManager = {

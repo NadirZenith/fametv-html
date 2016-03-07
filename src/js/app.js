@@ -1,5 +1,5 @@
 'use strict';
-
+var $ = window.$ = window.jQuery = require('jquery');
 var settings = require('./app/settings');
 var viewStack = require('./app/view_stack');
 var Mprogress = require('../../node_modules/mprogress/mprogress.min');
@@ -9,7 +9,9 @@ module.exports = {
     Collections: {},
     Views: {
         // Abstract: {},
-        // Dialogs: {},
+        Dialogs: {
+            Contact: require('./app/view/dialog/contact')
+        },
         Pages: {
             Index: require('./app/view/pages/index'),
             Page: require('./app/view/pages/page')
@@ -20,11 +22,7 @@ module.exports = {
         },
         // Charts: {}
     },
-    /*router: require('./app/router'),*/
-    // Tours: {},
-    // currentTour: null,
-    // //router: null,
-    // dialog: null,
+    dialog: null,
     page: null,
     header: null,
     // footer: null,
@@ -44,6 +42,25 @@ module.exports = {
         };
         doneCallback();
 
+    },
+    showDialog: function (dialogName, params) {
+        var app = this;
+
+        if (typeof (app.Views.Dialogs[dialogName]) === 'undefined') /// this page is already current
+            return false;
+
+        if (app.dialog && app.dialog.isVisible) {
+            app.dialog.once('hidden', function () {
+                console.log('Ready to show another dialog');
+                app.dialog = new app.Views.Dialogs[dialogName](params);
+            }, this);
+            app.dialog.hide();
+        } else {
+            app.dialog = new app.Views.Dialogs[dialogName](params);
+            /*app.log.event('dialog', 'Show Dialog ' + dialogName);*/
+        }
+
+        return true;
     },
     showPage: function (pageName, params) {
         if (typeof (this.Views.Pages[pageName]) === 'undefined') {
@@ -88,7 +105,7 @@ module.exports = {
         if (fromStack !== false) {
             /// Console log wake up page from stack
             console.log('Showing page from stack');
-            
+
             this.page = fromStack;
             this.page.wakeUp();
             this.loadingStatus(false);

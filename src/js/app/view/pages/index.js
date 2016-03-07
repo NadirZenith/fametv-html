@@ -1,4 +1,5 @@
 'use strict';
+var $ = window.$ = window.jQuery = require('jquery');
 var App = require('./../../../app');
 var AbstractPage = require('./../../abstract/page');
 var Shows = require('./../../collection/shows');
@@ -141,8 +142,8 @@ var Index = AbstractPage.extend({
     update: function (params) {
 
         if (params.id === false) {
-            //update to top
             window.scrollTo(0, 0);
+            //update to top
         } else {
 
             var model = this.shows.getById(params.id);

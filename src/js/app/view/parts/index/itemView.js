@@ -1,12 +1,12 @@
 'use strict';
-
+var $ = window.$ = window.jQuery = require('jquery');
 var App = require('./../../../../app');
 var social_config = require('./../../../social_config');
 var templateManager = require('./../../../template_manager');
 var ShareButton = require('./../../../../../../node_modules/share-button/dist/share-button.min.js');
 
 var Backbone = require('backbone');
-var videojs = require('video.js');
+var videojs = window.videojs = require('video.js');
 
 // itemView.js
 var itemView = Backbone.View.extend({

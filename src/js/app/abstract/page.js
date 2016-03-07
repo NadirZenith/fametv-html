@@ -1,5 +1,5 @@
 'use strict';
-
+var $ = window.$ = window.jQuery = require('jquery');
 // var App = require('./../../app');
 var templateManager = require('./../template_manager');
 var settings = require('./../settings');

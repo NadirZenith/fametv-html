@@ -1,5 +1,5 @@
 'use strict';
-
+var $ = window.$ = window.jQuery = require('jquery');
 var App = require('./../app');
 var settings = require('./settings');
 var Backbone = require('backbone');
@@ -23,7 +23,7 @@ var Router = Backbone.Router.extend({
         "page/:slug": "page"
     },
     dialogs: {
-        "user/contact": "Contact",
+        "#contact": "Contact",
     },
     index: function (id) {
         var id = (!id) ? false : id;
@@ -66,7 +66,6 @@ var Router = Backbone.Router.extend({
                 href = href.split(settings.sitePath).join('');
                 href = href.slice(-1) == '/' ? href.slice(0, -1) : href;
                 href = href.slice(0, 1) == '/' ? href.slice(1) : href;
-
                 /// trying to find dialog
                 for (var k in that.dialogs) {
                     if (k == href) {

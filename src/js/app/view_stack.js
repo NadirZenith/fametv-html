@@ -29,7 +29,7 @@ module.exports = {
             hash = buildHash(hash, params);
         }
 
-        console.log('addView | hash: %s', hash);
+        /*console.log('addView | hash: %s', hash);*/
         this.stack[hash] = {
             view: view,
             hash: hash,
@@ -76,7 +76,7 @@ module.exports = {
         sort.sort(function (a, b) {
             return a.added - b.added;
         });
-        console.log("Removing " + sort[0].hash + " from pages stack");
+        /*console.log("Removing " + sort[0].hash + " from pages stack");*/
         delete this.stack[sort[0].hash];
         this.inStackCount--;
     }

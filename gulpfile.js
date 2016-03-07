@@ -32,9 +32,9 @@ gulp.task('styles', function () {
 
 gulp.task('modules', function () {
     gulp.src([
-        'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/jquery.easing/jquery.easing.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        /*'node_modules/jquery/dist/jquery.min.js',*/
+        /*'node_modules/jquery.easing/jquery.easing.min.js',*/
+        /*'node_modules/bootstrap/dist/js/bootstrap.min.js',*/
     ])
             .pipe(sourcemaps.init())
             .pipe(concat('modules.js'))
@@ -44,12 +44,6 @@ gulp.task('modules', function () {
 });
 
 gulp.task('app', function () {
-
-    var bundler = browserify({
-        entries: ['src/js/main.js'],
-        debug: true,
-        paths: ['./node_modules']
-    });
     /*
      require('dotenv').config();
      var env = (process.env.DEBUG) ? 'DEV' : '';
@@ -60,15 +54,38 @@ gulp.task('app', function () {
      verbose: false
      };
      */
-    bundler
             /*.transform(aliasify, aliasifyConfig)*/
-            /*.transform({global: true}, aliasify) //see: https://gist.github.com/malte-wessel/8a295bc604c4a0d0dbe1 */
+    /*.transform({global: true}, aliasify) //see: https://gist.github.com/malte-wessel/8a295bc604c4a0d0dbe1 */
+
+/*
+    var bundler = browserify({
+        entries: ['src/js/main.js'],
+        debug: true,
+        paths: ['./node_modules']
+    });
+    bundler
+            .bundle()
+            .pipe(source('build.min.js'))
+            .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(uglify())
+            .pipe(sourcemaps.write('./'))
+            .pipe(gulp.dest('./dist'));
+ */
+    
+    var bundler = browserify({
+        entries: ['src/js/main.js'],
+        debug: true,
+        paths: ['./node_modules']
+    });
+    bundler
             .bundle()
             .pipe(source('build.js'))
             .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
+            .pipe(sourcemaps.init({loadMaps: true}))
+            /*.pipe(uglify())*/
+            .pipe(sourcemaps.write())
+            /*.pipe(sourcemaps.write('./'))*/
             .pipe(gulp.dest('./dist'));
 });
 

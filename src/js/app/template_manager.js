@@ -1,6 +1,7 @@
 'use strict';
 
 var settings = require('./settings');
+var $ = require('jquery');
 var localStorage = require('./local_storage');
 var _ = require('underscore');
 var moment = require('moment');
@@ -18,9 +19,8 @@ var templateManager = {
         _.template.formatdate = function (stamp) {
 
             return moment(stamp).format('L');
-           
-        };
 
+        };
 
         this._initialized = true;
     },
@@ -61,10 +61,8 @@ var templateManager = {
             } else {
                 // fetch template
                 this.loadFromServer(name, function (tpl) {
-                    // console.log('tpl',tpl);
 
                     success(tpl(data));
-                    // success(tpl.fetch(data));
                 });
             }
 
@@ -76,12 +74,12 @@ var templateManager = {
     },
     tryToLoadFromStorage: function (name) {
         if (!settings.enableTemplatesCache) {
-            console.log('%cTemplates cache is disabled', 'color: red');
+            /*console.log('%cTemplates cache is disabled', 'color: red');*/
             return false;
         }
 
         if (!localStorage.isSupported()) {
-            console.log('Local storage is disabled', 'color: red');
+            /*console.log('Local storage is disabled', 'color: red');*/
             return false;
         }
 
@@ -103,22 +101,11 @@ var templateManager = {
         var templateName = name;
         var callbackFunc = callback;
 
-        console.time("template_manager.js | Fetch " + templateName + " from server");
-
         var process = function (data) {
-            console.timeEnd("template_manager.js | Fetch " + templateName + " from server");
-            console.group("Template name: " + templateName);
-            console.log("Callback function present: " + typeof (callbackFunc));
-            if (typeof (that._loadingCallbacks[templateName]) === 'undefined')
-                console.log("No additional callbacks");
-            else
-                console.log("Additional callbacks: " + that._loadingCallbacks[templateName].length);
-            console.groupEnd();
 
             if (data) {
                 localStorage.set('app_templates_' + templateName, data);
                 that._cache[templateName] = data;
-                // that._templates[templateName] = new jSmart(data);
                 that._templates[templateName] = _.template(data);
                 that._loadingStates[templateName] = 'ready';
 
@@ -147,7 +134,6 @@ var templateManager = {
             cache: use_cache
         });
     }
-
 
 };
 

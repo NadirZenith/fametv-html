@@ -76,8 +76,6 @@ describe('View Stack', function () {
 
         });
     });
-// @todo: clear, removeOld
-// 
 
 
 });

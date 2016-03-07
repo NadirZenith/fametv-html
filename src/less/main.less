@@ -1,13 +1,13 @@
 //brand
-@fame-red: #E30016;
+/*@fame-red: #E30016;*/
+@fame-red: #E40D21;
 /*@fame-red: rgba(227, 0, 22, 1);*/
 
 //layout
-/*@primary-color: #fff;*/
-@primary-color: #eee; //@fame-red;
+@primary-color: #eee; 
 @secondary-color: @fame-red;
 @font-color: #000;
-/*@navbar-background: rgba(84,135,157,0.7);*/
+
 @navbar-background: rgba(255,255,255,1);
 @navbar-links-color: #333;
 
@@ -26,7 +26,12 @@
 @video-progress-bg: @secondary-color;
 @vjs-slider-bg: #73859f;
 
-
+/**
+* List
+*/
+/*@item-title-color: rgba(141, 0, 13,1);*/
+@item-title-color: @fame-red;
+@item-title-bg: fade(@item-title-color, 50%);
 
 @import 'navbar';
 @import 'page_transitions';
@@ -61,12 +66,16 @@ h1{
         bottom: 5px;
         width: 100%;
         padding: 1px 3px;
-        background-color: rgba(181, 0, 17,0.5);
+        /*rgba(181, 0, 17,0.5);*/
+        background-color: 
+            fade(@item-title-color, 50%)
 
     }
     &:hover{
         .title{
-            background-color: rgba(141, 0, 13,0.8);
+            /*rgba(141, 0, 13,0.8);*/
+            background-color: 
+                fade(@item-title-color, 80%)
 
         }
     }
@@ -74,6 +83,37 @@ h1{
         top: 2px;
         padding: 1px 5px;
         text-shadow: 0 1px 1px #000;
-        background-color: rgba(141, 0, 13,1);
+        /*rgba(141, 0, 13,1);*/
+        background-color: 
+            fade(@item-title-color, 100%)
     }
+}
+
+
+
+.btn-primary {
+    color: #fff;
+    /*background-color: #337ab7;*/
+    background-color: 
+        fade(@item-title-color, 90%);
+    border-color: 
+        fade(@item-title-color, 80%);
+}
+
+.btn-primary.active.focus, 
+.btn-primary.active:focus, 
+.btn-primary.active:hover, 
+.btn-primary:active.focus, 
+.btn-primary:active:focus, 
+.btn-primary:active:hover,
+.btn-primary.focus,
+.btn-primary:focus{
+    color: #fff;
+    background-color: 
+        fade(@item-title-color, 70%);
+    border-color: 
+        fade(@item-title-color, 100%);
+
+    /*background-color: #204d74;*/
+    /*border-color: #122b40;*/
 }
